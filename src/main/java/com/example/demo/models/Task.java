@@ -1,6 +1,9 @@
 package com.example.demo.models;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
 
 @Entity
 public class Task {
@@ -9,16 +12,15 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "El título no puede estar vacío")
+    @Size(min = 3, max = 50, message = "El título debe tener entre 3 y 50 caracteres")
     private String title;
+
+    @Size(max = 200, message = "La descripción no puede tener más de 200 caracteres")
     private String description;
+
     private boolean completed = false;
 
-    public Task() {}
-
-    public Task(String title, String description) {
-        this.title = title;
-        this.description = description;
-    }
 
     // Getters y Setters
     public Long getId() { return id; }
